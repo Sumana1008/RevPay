@@ -14,7 +14,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long fromAccountId;
-    private String toAccountNumber;
+    private Long toAccountId;
     private BigDecimal amount;
     private LocalDateTime timestamp;
 
@@ -34,12 +34,12 @@ public class Transaction {
         this.fromAccountId = fromAccountId;
     }
 
-    public String getToAccountNumber() {
-        return toAccountNumber;
+    public Long getToAccountId() {
+        return toAccountId;
     }
 
-    public void setToAccountNumber(String toAccountNumber) {
-        this.toAccountNumber = toAccountNumber;
+    public void setToAccountId(Long toAccountId) {
+        this.toAccountId = toAccountId;
     }
 
     public BigDecimal getAmount() {

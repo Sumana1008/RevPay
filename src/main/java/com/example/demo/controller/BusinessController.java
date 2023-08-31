@@ -9,25 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//BusinessController that handles HTTP requests related to business registration.
 @RestController
 public class BusinessController {
 
     @Autowired
     private BusinessRepository businessRepository;
 
-    @PostMapping(value = "/businesses", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<?> registerBusiness(@ModelAttribute BusinessRegistrationRequest request) {
-        // Check if the username already exists
-        if (businessRepository.findByUsername(request.getUsername()) != null) {
-            return ResponseEntity.badRequest().body("Username already exists");
-        }
+    @Autowired
+    private BusinessService businessService;
+   /* registerBusiness(): Handles a POST request to register a new business.
+            Checks if the provided username already exists and creates a new business if not.
+    Calls the createBusiness(Business business) method in BusinessService.*/
 
-        // Create a new Business entity and save it to the database
-        Business business = new Business();
-        business.setUsername(request.getUsername());
-        business.setPassword(request.getPassword());
-        businessRepository.save(business);
+    @PostMapping(value = "/businesses")
+    public ResponseEntity<?> registerBusiness(@ModelAttribute Business request) {
+/*This method takes a parameter named request of type BusinessRegistrationRequest.
+It uses the @ModelAttribute annotation to bind form data from the request body to the BusinessRegistrationRequest object.
+ */
+        businessService.createBusiness(request);
 
         return ResponseEntity.ok().body("Business registered successfully");
     }
